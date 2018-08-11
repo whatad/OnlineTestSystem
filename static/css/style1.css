@@ -1,0 +1,41 @@
+ .body-content .cont-r .tab-content .question-content .keyPanel .title .pull-right{position: absolute;  top: -9px;  right: 0;}
+ .body-content .cont-r .tab-content .question-content .keyPanel .title {position: relative;  }
+ .pull-right .switch {min-width: 58px;vertical-align: middle;height: 30px;border-radius: 30px;}
+ .pull-right .switch .switch-left {background-image: none;background-color: #1A8CFE;font-size: 12px; top: -3px;}
+ .pull-right .switch .switch-right{font-size: 12px; top: -3px;}
+ .pull-right label {font-size: 12px;color:#494949;font-weight: normal;border:none}
+ .keyFillContent .input-group .bootstrap-tagsinput{width: 100%;border-radius: 0 4px 4px 0}
+ .disorder-prompt{background: #FFFFFF;box-shadow: 0 0 4px 0 rgba(0,0,0,0.20);border-radius: 2px;position: absolute;top: -95px;right: 0;z-index: 999;padding: 10px;line-height: 22px;width: 257px;height: 86px;}
+ .answer-prompt{background: #FFFFFF;box-shadow: 0 0 4px 0 rgba(0,0,0,0.20);border-radius: 2px;position: absolute;top: -140px;left: 0;z-index: 999;padding: 10px;line-height: 22px;width: 257px;height: 126px;}
+ .disorder-prompt .importent , .answer-prompt .importent{font-family: MicrosoftYaHei;font-size: 12px;color: #1A8CFE;}
+ .icons8-help{color: #A9B3BF; font-size: 14px;}
+ .answer-help{margin-left: 5px;}
+ .disorder-help{margin: 0 5px;}
+ .body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group .bootstrap-tagsinput .label-info{background: #1A8CFE;}
+ .body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group .bootstrap-tagsinput .label-info>span{background: #1A8CFE;}
+ .body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group .bootstrap-tagsinput .label-info>span:after{font-weight: normal;}
+ .body-content .cont-r .tab-content .question-content .keyFill .addKeyFillBtn .icons8-plus{margin-right: 5px;font-size: 14px;}
+
+ .btn-size{width: 90px; height: 34px;}
+ span.title-font{color: #1A8CFE;}
+ .addKeyBtn .plus-style{margin-right: 6px;}
+ .descPanel .questions_add.wangEditor-txt {height: 58px !important;margin: 0 !important;}
+ .bootstrap-tagsinput .tag + input::-webkit-input-placeholder{opacity: 0.0;}
+
+ .btn-size{
+    width: 90px;
+    height: 34px;
+}
+
+span.title-font{
+    color: #1A8CFE;
+}
+
+.addKeyBtn .plus-style{
+    margin-right: 6px;
+}
+
+.descPanel .questions_add.wangEditor-txt{
+    height: 58px !important;
+    margin: 0 !important;
+}

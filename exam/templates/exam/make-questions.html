@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>制作题目</title>
+    <link rel="stylesheet" href="{% static 'css/make-questions.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/wangEditor.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/wangEditor-custom.css' %}"/>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/wangEditor.js' %}"></script>
+    <script src="{% static 'js/make-questions.js' %}"></script>
+
+
+
+</head>
+<body>
+<div id="whole">
+    <!---【1】页面说明模块--->
+    <div>
+        <h1>制作题目</h1>
+        <!---插入时间--->
+    </div>
+    <hr/>
+
+    <!---【2】题目难度设置模块--->
+    <div>
+        <div class="description">新题目</div>
+        <div class="toright">难度指数：A:100 B:50 C:10</div>
+    </div>
+    <br/>
+    <hr/>
+
+    <!---【3】科目及程度设置模块--->
+    <div class="description">科目及程度：
+        <div>
+            <form>
+                <select name="">
+                    <option value="">---请选择科目---</option>
+                    <option value="cy_yw">语文</option>
+                    <option value="cy_ss">数学</option>
+                    <option value="cy_yy">英语</option>
+                </select>
+            </form>
+            <form>
+                <select name="">
+                    <option value="">---请选择科目---</option>
+                    <option value="cy_yw">语文</option>
+                    <option value="cy_ss">数学</option>
+                    <option value="cy_yy">英语</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <hr/>
+
+    <!---【4】题目编辑模块--->
+    <div>
+        <div class="description">问题：</div>
+        <!---插入一个富文本编辑器--->
+        <!--<div id="edit">此处插入富文本编辑器</div>-->
+        <div id="editor">
+            <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+        </div>
+    </div>
+    <br/>
+    <hr/>
+
+    <!----【5】题型及答案模块--->
+    <div>
+        <div class="description">题型及答案：</div>
+        <form>
+            <select name="">
+                <option value="">---请选择题型---</option>
+                <option value="fill_blank">填空题</option>
+                <option value="short_answer">简答题</option>
+            </select>
+        </form>
+    </div>
+    <hr/>
+
+    <!---【6】设置提示模块--->
+    <div>
+        <div class="description">提示：</div>
+        <!---添加两个选择项--->
+        <input type="radio" name="cue" value="1" checked="checked"/>不提供
+        <input type="radio" name="cue" value="2"/>提供（选取观看提示后正确作答，可获得改题的90%分数）
+    </div>
+    <hr/>
+
+    <!---【7】设置全解模块--->
+    <div>
+        <div class="description">全解：</div>
+        <!---添加两个选择项--->
+        <input type="radio" name="analysis" value="1" checked="checked"/>不提供
+        <input type="radio" name="analysis" value="2"/>提供
+    </div>
+    <hr/>
+
+    <!---【8】设置答题时间模块--->
+    <div>
+        <div class="description">作答限时：</div>
+        <form>
+            <select name="">
+                <option value="">---请选择作答时间---</option>
+                <option value="1_minute">1分钟</option>
+                <option value="2_minute">5分钟</option>
+                <option value="15_minute">15分钟</option>
+                <option value="30_minute">30分钟</option>
+            </select>
+        </form>
+    </div>
+    <hr/>
+
+    <!---【9】设置权限模块--->
+    <div>
+        <div class="description">权限</div>
+    </div>
+    <br/>
+    <hr/>
+
+    <!---【10】保存题目模块--->
+    <div>
+        <button id="delete_btn" type="btn_delete">删除题目</button>
+        <button id="see_btn" type="btn_see">预览题目</button>
+        <button id="save_btn" type="btn_save">保存题目</button>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor = new E('#editor')
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create()
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{% load staticfiles %}
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+    <<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.bootgrid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ksx-base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-tagsinput.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrapSwitch.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/wangEditor.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/wangEditor.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/wangEditor-custom.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/question_add.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+    <!-- growingIO  website data analysis -->
+    <script type="text/javascript" src="{% static 'js/script1.js'%}"></script>
+
+
+
+</head>
+
+
+<body>
+    <div class="viewFrameWork sidebar-min" id="viewFrameWork">
+        <!-- viewFrameWork-sidebar -->
+        <div class="viewFrameWork-sidebar">
+            <a href="管理端首页的html" class="sidebar-top sidebar-logo sidebar-btn" title="管理员端首页">
+                <!--小图标样式-->
+                <span class="icon-logo logo-min" data-name="scnu_cs">s</span>
+                <!--对有没有logo进行判断-->
+                <img class="icon-logo logo-full logo-ksx" src="应用图标"/>
+            </a>
+
+            <div class="sidebar-inner">
+                <div class="sidebar-fold icon-fold" id="sidebar-fold" data-toggle="tooltip" data-placement="right" data-container="body" title="展开导航" >
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+
+
+
+                <div class="sidebar-nav">
+                    <ul class="sidebar-trans">
+
+                        <li class="nav-item nav-item-index">
+                            <a href="首页html/" data-toggle="tooltip" data-placement="right" data-container="body" title="首页">
+                                <div class="nav-icon">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                </div>
+                                <span class="nav-title">首页</span>
+                             </a>
+                        </li>
+
+
+
+                        <li class="nav-item nav-item-exam-mgr">
+                            <a href="考试管理html" data-toggle="tooltip" data-placement="right" data-container="body" title="考试管理">
+                                <div class="nav-icon">
+                                    <i class="glyphicon glyphicon-file"></i>
+                                </div>
+                                <span class="nav-title">考试管理</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item nav-item-user-mgr">
+                            <a href="人员管理html" data-toggle="tooltip" data-placement="right" data-container="body" title="人员管理">
+                                <div class="nav-icon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <span class="nav-title">人员管理</span>
+                            </a>
+                        </li>
+
+
+
+
+                        <li class="nav-item nav-item-system-mgr">
+                            <a href="系统管理html" data-toggle="tooltip" data-placement="right" data-container="body" title="系统管理">
+                                <div class="nav-icon">
+                                    <i class="glyphicon glyphicon-cog"></i>
+                                </div>
+                                <span class="nav-title">系统管理</span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div><!-- sidebar-nav -->
+            </div><!-- sidebar-inner -->
+        </div><!-- viewFrameWork-sidebar -->
+
+
+
+
+
+        <!-- viewFrameWork-body -->
+        <div class="viewFrameWork-body">
+            <div class="body-top body-addition">
+                <!-- body operation area -->
+                <div class="body-top-left body-operation">
+                    <div class="body-toolbar clearfix">
+                        <div class="body-toolbar-right pull-right toolbar-right-operation">
+                            <button type="button" class="btn btn-primary btn-size btn-reset">重置</button>
+                            <button type="button" class="btn btn-warning btn-size" id="saveAndAddBtn">录入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="body-bottom body-content">
+                <!-- loading -->
+                <div class="spinner-wrapper hidden" id="spinnerLoading">
+                    <div class="spinner">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                </div>
+
+
+                <div class="cont-r">
+                    <div role="tabpanel" class="tab-area tab-col2">
+                        <!-- Tab panes -->
+                        <!--form action="https://admin.kaoshixing.com/admin/addtestqm" -->
+                        <form action="" name="form" method="post" id="subForm">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="manualInput">
+                                    <div class="batch-type">
+
+                                      <span class="intro">试题类型</span>
+                                        <div class="simulationSelect testType">
+                                            <span class="title-font">填空题</span>
+                                            <em class="glyphicon glyphicon-triangle-bottom"></em>
+                                            <div class="simulationOption testType">
+                                                <div class="four">填空题</div>
+                                                <div class="five">问答题</div>
+                                            </div>
+                                        </div>
+
+                                        <select name="type" class="form-control hidden">
+                                            <option value="4" selected>填空题</option>
+                                            <option value="5">问答题</option>
+                                        </select>
+
+                                    </div><!-- batch-type -->
+
+
+
+                                    <div class="combBatchPanel" style="display:none;">
+                                        <div class="combBatchBlock">
+                                            <div class="batch-cont" id="inputArea">
+                                                <div class="batch-input clearfix">
+                                                    <div class="batch-input-box">
+                                                        <textarea id="text-input" oninput="this.editor.update()" class="box" wrap="hard"></textarea>
+                                                    </div>
+
+                                                    <div class="batch-preview-box">
+                                                        <div class="box">
+                                                            <div id="preview"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div><!-- combBatchBlock -->
+                                    </div> <!-- combBatchPanel -->
+
+
+
+                                    <div class="question-content">
+                                        <!------------------------------------------>
+                                        <!----------【part1】题干部分------------>
+                                        <!------------------------------------------>
+                                        <div class="descPanel">
+                                            <div class="title">
+                                                <span class="tip">题干</span>
+                                                <span class="intro">这里填写题目描述</span>
+                                                <span class="totalgrade">分值</span>
+                                                <span><input name="totalgrade" type="text"/></span>
+                                            </div>
+                                            <!-- <div id="questionEditor" class="questions_add"></div> -->
+                                           <!--  <input name="question" type="hidden" /> --><!-- 填空题目富文本编辑区 -->
+                                           <!--<input name="question" type="text" size="100" style="height:100px;"/>--><!-- 文本输入框 -->
+                                            <textarea name="question" rows="5" cols="100"></textarea><!--题目会有多行文字，使用textarea比较合适-->
+                                        </div>
+
+
+                                        <!------------------------------------------>
+                                        <!----------【part2-1】填空题答案部分----------->
+                                        <!------------------------------------------>
+                                        <div class="keyFill keyPanel">
+                                            <div class="title">
+                                                <span class="tip">答案</span>
+                                                <span class="intro">请填写每个填空的答案<i class="icons8-help answer-help"></i></span>
+                                            </div>
+
+
+                                            <!--------【part2-1-1】填空题填空答案部分--------->
+                                            <div class="keyFillContent">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">1</span>
+                                                    <span><input type="text" name="keyFill" class="form-control" id="keyFillInput" data-role="tagsinput" placeholder="请输入答案，按下回车添加同义词。"></span><!-- 填空输入区 -->
+                                                    <span class="fillgrade">分值</span>
+                                                    <span><input name="fillgrade" type="text"/></span>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!----------【part2-1-2】增加填空部分------------>
+                                            <div class="addKeyFillBtn">
+                                                <span><button type="button" class="btn btn-l-gray addKeyFill"><i class="glyphicon glyphicon-plus-sign" style="top: 0"></i>增加一个填空</button></span>
+                                            </div>
+                                        </div>
+
+                                        <!------------------------------------------>
+                                        <!----------【part2-2】简答题答案部分----------->
+                                        <!------------------------------------------>
+                                        <div class="keyCloze keyPanel">
+                                            <div class="title">
+                                                <span class="tip">答案</span>
+                                                <span class="intro">这里填写答案</span>
+                                            </div>
+                                            <!--<input name="answer" type="text" size="100" style="height:100px;"/>-->
+                                            <textarea name="answer" rows="5" cols="100"></textarea><!--题目会有多行文字，使用textarea比较合适-->
+                                            <!-- <div id="clozeEditor" class="questions_add"></div> -->
+                                            <!-- <input name="answer1" type="hidden" /> -->
+                                            <!-- <input type="hidden" class="radioOrCheck" name="key1" value="1" /> -->
+                                            <div class="keyWordPanel">
+                                                <div class="title" style="position: relative;">
+                                                    <span class="tip">关键词</span>
+                                                    <span class="intro">这里添加答案关键词</span><span class="keyWordBadge">?</span>
+                                                </div>
+                                                <div class="key_block" id="keyBlock" style="display:none"></div><!--显示所有关键字的地方，未输入关键字之前是隐藏的-->
+                                                <input type="text" name="key_word" class="form-control" placeholder="添加关键词" size="60px"/><!--输入关键字的地方-->
+                                                <span>添加分值:</span>
+                                                <input type="text" name="key_grade" class="form-control" placeholder="添加分值" size="30px"/>
+                                                <div class="button-bar">
+                                                    <button type="button" class="btn btn-gray btn-normal-word" id="normalWord"><em class="glyphicon glyphicon-plus-sign"></em>普通关键词</button>
+                                                    <button type="button" class="btn btn-warning btn-key-word" id="keyWord"><em class="glyphicon glyphicon-plus-sign"></em>核心关键词</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!------------------------------------------>
+                                        <!----------【part3】试题分析部分-------------->
+                                        <!------------------------------------------>
+                                        <div class="analysisPanel">
+                                            <div class="title">
+                                                <span class="tip">解析</span>
+                                                <span class="intro">这里填写该问题对应的答案解释</span>
+                                            </div>
+                                            <!-- <div id="analysisEditor" class="questions_add"></div> -->
+                                            <!-- <input name="analysis" type="hidden"> --><!-- 分析富文本编辑框 -->
+                                            <!--<input name="analysis" type="text" size="100" style="height:100px;"/>--><!-- 文本输入框 -->
+                                            <textarea name="analysis" rows="5" cols="100"></textarea><!--解析会有多行文字，使用textarea比较合适-->
+                                        </div>
+                                    </div><!-- question-content -->
+
+                                </div><!-- tab-pane active -->
+                            </div><!-- tab-content -->
+                        </form>
+                    </div><!-- /.tab-area tab-col2 -->
+                </div><!-- /.cont-r -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <form id="asyncForm" style="display: none">
+        <textarea name="question"></textarea>
+        <textarea name="analysis"></textarea>
+        <div></div>
+    </form>
+
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.bootgrid-ksx.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-dialog.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/colResizable-1.6.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/admin-base.js'%}"></script>***
+    <script type="text/javascript" src="{% static 'js/script2.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrapSwitch.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-tagsinput.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/wangEditor.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/fileUpload.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/mediaUpload.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/auto-line-number.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/script3.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/admin_addQuestions.js' %}"></script>
+</body>
+</html>
+
