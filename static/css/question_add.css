@@ -6,7 +6,7 @@ input[type="checkbox"], input[type="radio"]{width: 15px;height: 15px;}
 /*手动添加试题页面*/
 .body-addition .body-operation .body-toolbar .body-toolbar-left button  { padding: 7px 16px 7px 16px;}
 .body-addition .body-operation .body-toolbar .body-toolbar-left button i { margin-right: 9px;}
-.viewFrameWork-body .body-content {padding:101px 0 0 0}
+.viewFrameWork-body .body-content {padding:40px 0 0 0}
 .body-content .cont-r .nav-tabs li {padding:0}
 .body-content .cont-r .nav-tabs li.active {background:#fff }
 .body-content .cont-r .nav-tabs li a { font-size: 18px;padding: 17px 0; text-align: center; width: 117px;margin: 0 auto;border-bottom:4px solid #f3f3f5;}
@@ -45,7 +45,7 @@ input[type="checkbox"], input[type="radio"]{width: 15px;height: 15px;}
 .body-content .cont-r .tab-content .add-questions-btn .btn-reset{margin-right:40px}
 /*.body-content .cont-r .tab-content .question-content .keyJudge .title {margin-bottom: 15px}*/
 .body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group {width: 100%}/*一整个填空（序号，答案）*/
-.body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group span{background:#FF0000;width:10px}/*C2CEDB*/
+.body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group .input-group-addon{background: #A9B3BF; color: #fff; width:10px}/*C2CEDB*/
 .body-content .cont-r .tab-content .question-content .keyFill .keyFillContent .input-group textarea {height: 30px;resize: none;padding: 0}
 .body-content .cont-r .tab-content .question-content .keyCloze .keyWordPanel,#manualInput .combBatchPanel .combBatchBlock  {margin-top: 15px}
 .body-content .cont-r .tab-content .question-content .keyCloze .keyWordPanel input { border: 1px solid #C2CEDB;  width: 40%;  margin-top: 10px;  margin-bottom: 10px;}

@@ -19,7 +19,7 @@ $(document).ready( function() {
 	$(".pull-right .has-switch div").attr("class","switch-on");
 
 
-	$(".keyJudge, .keyFill, .keyCloze").hide();
+	$(".keyJudge, .keyCloze").hide();
 
 
     $("input[type=file]").change(function() {
@@ -262,7 +262,8 @@ $(document).ready( function() {
 
 	//保存并新增
 	$("#saveAndAddBtn").click(function(e) {
-		var type=$("#asyncForm input[name=type]").val();
+		/*var type=$("#asyncForm input[name=type]").val();*/
+        var type = $(".batch-type select[name=type]").val();
 		if(type==6){
 			var classification = $("#subForm input[name=classification]").val();
 			if(classification == "0"){
@@ -295,7 +296,7 @@ $(document).ready( function() {
 				 '		  <span class="input-group-addon">'+(keyLength+1)+'</span>'+
 				 '		  <span><input type="text" name="keyFill"  class="form-control" placeholder="请输入答案，按下回车添加同义词。"></span>'+
 				 '		  <span class="addfillgrade">分值</span>'+//添加分值
-				 '		  <span><input type="text" name="addfillgrade/"></span>'+//添加分值
+				 '		  <span><input type="text" name="addfillgrade"/></span>'+//添加分值
 				 '	 </div>'+
 				 '	  <a href="javascript:void(0);" class="removeKeyFill glyphicon glyphicon-remove"></a>'+
 				 '</div>';
@@ -578,10 +579,11 @@ function checkForm(){
 		alert("请选择试题类型！");
 		return false;
 	}
+	/*？过滤器报错，暂时注释掉
 	if(filterContentIsEmpty($("input[name=question]").val())){
 		alert("请填写试题描述！");
 		return false;
-	}
+	}*/
 
 	if(type==1||type==2){
 		var key = $(".keyRadio .radioOrCheck");
@@ -688,10 +690,11 @@ function serializeForm(){
 	$("#asyncForm input[name=keyWords]").val(key_words);
 
 	var parent_dom=$("#editor").parent();
-	$("#asyncForm textarea[name=question]").text($("input[name=question]").val());
-	$("#asyncForm textarea[name=analysis]").text($("input[name=analysis]").val());
+	$("#asyncForm textarea[name=question]").text($("textarea[name=question]").val());
+	$("#asyncForm textarea[name=analysis]").text($("textarea[name=analysis]").val());
 
-	var type = $("#asyncForm input[name=type]").val();
+	/*var type = $("#asyncForm input[name=type]").val();*/
+    var type = $(".batch-type select[name=type]").val();
 	if(type==1||type==2){
 		var keyList = $(".keyRadio").find(".keyList");
 		for(var i=0;i<keyList.length;i++){
@@ -719,11 +722,19 @@ function serializeForm(){
 	}else if(type==4){
 		var keyList = $("input[name=keyFill]");
 		var html = "";
+		var i=0;
 		$("input[name=keyFill]").each(function(index, element) {
             var reg=/,/g;
-			html = '<input type="hidden" class="" name="key'+(index+1)+'" value="1" /><input type="hidden" class="radioOrCheck" name="answer'+(index+1)+'" value="'+$(this).val().replace(reg,"&&")+'" />';
+            i++;
+			html = '<input type="hidden" class="radioOrCheck" name="answer'+(index+1)+'" value="'+$(this).val().replace(reg,"&&")+'" />';
 			$("#asyncForm div").append(html);
 		});
+		html = '<input type="hidden" name="number" value='+i+' />';
+		$("#asyncForm div").append(html);
+		$("input[name=addfillgrade]").each(function (index, element) {
+            html = '<input type="hidden" class="" name="score'+(index+1)+'" value="'+$(this).val()+'" />';
+            $("#asyncForm div").append(html);
+        });
 		return true;
 
 	}else if(type==5||type==7){
@@ -740,17 +751,17 @@ function asyncSub(){
 	$.ajax({
 		type: "POST",
 		cache : false,
-		headers: { "cache-control": "no-cache" },
 		dataType: "json",
-		url: "",//"/admin/addtestqm",
+		url: "/exam/add/",
 		data: dataForm + "&t="+Math.random(),
 		success: function(msg){
-				if(msg.success == true){
+			alert("success");
+				/*if(msg.success == true){
 					resetPage();
 					alert("保存成功！");
 				}else{
 					alert(msg.errmsg);
-				}
+				}*/
 		}
 	});
 }

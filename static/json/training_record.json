@@ -1,0 +1,49 @@
+[
+	{
+		"id":"1",
+		"question_id":"3005",
+		"student_id":"20180416",
+		"student_answer_segment":"误码率/是/码元/在/传输系统/中/被/传错/的/概率",
+		"degree":"100"
+	},
+
+	{
+		"id":"2",
+		"question_id":"3005",
+		"student_id":"20180004",
+		"student_answer_segment":"误码率/是/码元/在/传输系统/被/传错/的/概率",
+		"degree":"100"
+	},
+
+	{
+		"id":"3",
+		"question_id":"3005",
+		"student_id":"20184612",
+		"student_answer_segment":"是/码元/在/传输系统/被/传错/概率",
+		"degree":"100"
+	},
+
+	{
+		"id":"4",
+		"question_id":"3005",
+		"student_id":"20183649",
+		"student_answer_segment":"码元/传输系统/传错/概率",
+		"degree":"100"
+	},
+
+	{
+		"id":"5",
+		"question_id":"3005",
+		"student_id":"20183346",
+		"student_answer_segment":"码元/传错/概率",
+		"degree":"80"
+	},	
+
+	{
+		"id":"6",
+		"question_id":"3005",
+		"student_id":"20186432",
+		"student_answer_segment":"码元/传错",
+		"degree":"60"
+	}			
+]

@@ -50,7 +50,15 @@ class FillBlank(models.Model):
     fbCourse = models.CharField(max_length=20, verbose_name=u'科目类别')
     fbGrade = models.CharField(max_length=5, verbose_name=u'难度等级')
     fbContent = models.CharField(max_length=200, verbose_name=u'题目内容')
-    fbAnswer1 = models.CharField(max_length=100, verbose_name=u'填空1答案')
+    #同个空格不同答案通过空格隔开，不同空格通过'\n'隔开
+    fbAnswer = models.CharField(max_length=300, null=True, verbose_name=u'填空答案')
+    fbScore = models.FloatField(null=True, verbose_name=u'分数')
+    alpha = models.FloatField(default=1.6, verbose_name=u'参数')
+    beta1 = models.FloatField(default=0.5, verbose_name=u'参数')
+    beta2 = models.FloatField(default=0.2, verbose_name=u'参数')
+    beta3 = models.FloatField(default=0.17, verbose_name=u'参数')
+    beta4 = models.FloatField(default=0.13, verbose_name=u'参数')
+    '''
     fbAnswer2 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空2答案')
     fbAnswer3 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空3答案')
     fbAnswer4 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空4答案')
@@ -60,6 +68,7 @@ class FillBlank(models.Model):
     fbAnswer8 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空8答案')
     fbAnswer9 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空9答案')
     fbAnswer10 = models.CharField(max_length=100, null=True, blank=True, verbose_name=u'填空10答案')
+    '''
 
 
 # 简答题（科目类别，难度[A,B,C]，题干，答案）
@@ -69,5 +78,23 @@ class ShortAnswer(models.Model):
     saContent = models.CharField(max_length=200, verbose_name=u'题目内容')
     saAnswer = models.TextField(max_length=500, verbose_name=u'答案')
 
+
+class Glossary(models.Model):
+    id = models.IntegerField(primary_key=True)
+    word = models.CharField(max_length=20, verbose_name=u'词语')
+    type = models.CharField(max_length=15, verbose_name=u'词性')
+    sememes = models.CharField(max_length=200, verbose_name=u'义原')
+
+
+class StudentAnswer(models.Model):
+    id = models.IntegerField(primary_key=True)
+    fillBlankId = models.IntegerField(default=0)
+    answer = models.CharField(max_length=300, verbose_name=u'学生答案')
+    score = models.FloatField(default=0)
+
+
+
+#python manage.py makemigrations
+#python manage.py migrate
 
 

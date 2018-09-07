@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+
+    <title>评分训练</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--使开发出来的页面适配于各种终端-->
+
+    <meta name="renderer" content="webkit"><!--内核控制Meta标签。用webit内核渲染网站-->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-table.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/test-training/style.css' %}">
+
+
+
+
+</head>
+<body>
+<!------------------------------------------------------------>
+<div class="wrapper1 tesst-wrapper">
+    <p class="text-center main_title">主观题判卷训练系统</p>
+    <div class="test-body">
+        <div class="button_bar">
+            <span>
+                <button type="button" class="btn btn-danger auto_training">自动阅卷</button>
+                <button type="button" class="btn btn-primary training_record"  id="training_record_btn">同题评卷记录</button>
+                <button type="button" class="btn btn-warning word_database"  id="word_database_btn">分词库</button>
+            </span>
+            <hr class="newline">
+        </div>
+
+
+        <div class="question" id="this_question">
+            <div class="question_content">
+                <div class="que_type title"><strong>简单题</strong></div>
+                <p class="text-center que_content">{{ fillBlank.fbContent }}</p>
+            </div>
+            <hr class="vertical" id="vertical_line1"/>
+            <div class="question_score">
+                <div class="text-center score">分值</div>
+                <div class="text-center que_score">{{ fillBlank.fbScore }}</div>
+            </div>
+            <hr class="newline">
+        </div>
+
+
+        <div class="answer">
+            <div class="answer_part1">
+                <div class="title">标准答案</div>
+                <p class="detail_des">{{ fillBlank.fbAnswer }}</p>
+
+            </div>
+
+
+
+            <div class="answer_part2">
+                <div class="title">自定义分词</div>
+                <p class="detail_des">误码率、码元、传输系统</p>
+
+            </div>
+
+
+
+            <div class="answer_part3">
+                <div class="title">标准答案的分词情况</div>
+                <p class="detail_des">误码率/是/码元/在/传输系统/中/被/传错/的概率</p>
+
+            </div>
+
+
+
+            <div class="answer_part4">
+                <div class="title">分词义原的选择及其对应权重</div>
+                <textarea class="sememe_choice_weight" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+
+            </div>
+
+
+
+            <button type="button" class="btn btn-danger modify" id="modify_question_btn" style="float: right;margin: 0px 20px 20px 10px;">修改</button>
+            <hr class="newline">
+        </div>
+
+
+        <div class="analysis">
+            <div class="analysis_part">
+                <div class="title">学生答案</div>
+                <textarea class="segment_sememe" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+            </div>
+            <div class="analysis_part">
+                <div class="title">学生答案及其分词情况</div>
+                <p class="detail_des">误码率/是/码元/在/传输系统/中/被/传送/出错/的/概率
+</p>
+            </div>
+
+            <div class="analysis_part">
+                <div class="title">分词对应的义原情况</div>
+                <textarea class="segment_sememe" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+            </div>
+
+            <div class="analysis_part">
+                <div class="title">匹配情况</div>
+                <textarea class="sememe_match" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+            </div>
+            <hr class="newline">
+        </div>
+
+
+        <div class="result" id="this_result">
+            <span>
+                <div class="result_part1">
+                    <div  class="title text-center" style="float: left; width: 18%;">新范本相对分%</div>
+                    <hr class="vertical" id="vertical_line2"/>
+                    <p class="score_percentage text-center">100</p>
+                    <hr class="vertical" id="vertical_line3"/>
+                </div>
+                <div class="result_part2">
+                    <button class="btn btn-success btn-sm save_answer" style="float: right;">保存答案范本</button>
+                </div>
+            </span>
+            <hr class="newline">
+        </div>
+
+        <div class="switch">
+            <span>
+                <button onclick="jump({{ questionId|add:-1}})" type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一题</button>
+                <button onclick="jump({{ questionId|add:1 }})" id="next" type="button" class="btn btn_next glyphicon glyphicon-arrow-right" style="float: right;">下一题</button>
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="wrapper2 modify-wrapper" id="modify_question_div" style="display: none;">
+
+    <div class="question" id="vertical_line_question">
+        <div class="question_content">
+            <div class="que_type title"><strong>简单题</strong></div>
+            <p class="text-center que_content">什么是通信系统的误码率？</p>
+        </div>
+        <hr class="vertical" id="vertical_line_modify"/>
+        <div class="question_score">
+            <div class="text-center score">分值</div>
+            <div class="text-center que_score">2</div>
+        </div>
+        <hr class="newline2">
+    </div>
+
+
+    <div class="adjust_container" style="float: left;">
+        <div class="item_1 adjust_part1 adjust_standard_answer">
+            <div class="title">标准答案</div>
+            <textarea class="modify">{{ fillBlank.fbAnswer }}</textarea>
+
+        </div>
+
+        <div class="item_2 adjust_part2 adjust_custom_segment">
+            <span>
+                <div class="title">自定义分词</div>
+                <textarea class="modify">误码率、码元、传输系统</textarea>
+                <!--<button class="btn btn-primary btn-sm confrim_btn" style="margin: -18px 5px 10px 10px;">确定</button>-->
+            </span>
+
+        </div>
+
+        <div class="item_3 adjust_part3 adjust_standard_segment">
+            <div class="title">标准答案的分词情况</div>
+            <p class="detail_des">误码率/是/码元/在/传输系统/中/被/传错/的概率</p>
+
+        </div>
+
+        <div class="item_4 adjust_part4 add_edge">
+            <p class="title">参数列表：</p>
+            <div class="parameter">参数1：<input value="0.5"/></div>
+            <div class="parameter">参数2：<input value="0.5"/></div>
+            <div class="parameter">参数3：<input value="0.5"/></div>
+            <div class="parameter">参数4：<input value="0.5"/></div>
+
+        </div>
+
+        <div class="item_5 adjust_part5 adjust_segment_sememe">
+            <p class="title">分词对应的义原情况</p>
+            <textarea  style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+        </div>
+
+        <div class="item_6 adjust_part6 adjust_segment_weight">
+            <p class="title">选择分词对应的义原及其所占权重</p>
+            <span class="sp">
+                <div> 码元 </div>
+                <input type="number" value="0.1"/>
+                <br/>
+            </span>
+
+            <span class="sp">
+                <div> 传输系统 </div>
+                <input type="number" value="0.1"/>
+                <br/>
+            </span>
+
+            <span class="sp">
+                <div> 传送 </div>
+                <input type="number" value="0.1"/>
+                <br/>
+            </span>
+
+            <span class="sp">
+                <div> 错误 </div>
+                <input type="number" value="0.1"/>
+                <br/>
+            </span>
+
+            <span class="sp">
+                <div> 概率 </div>
+                <input type="number" value="0.1"/>
+                <br/>
+            </span>
+        </div>
+
+        <button class="item_7 btn btn-primary btn-sm confrim_btn" style="margin: -18px 5px 10px 10px;">确定</button>
+
+
+    </div>
+
+</div>
+
+<div class="wrapper3 word_database_table" id="word_database_div" style="display: none;">
+    <table data-toggle="table" data-striped=true data-url="{% static 'json/segment.json' %}">
+        <thead>
+            <tr>
+                <th data-field="id">序号</th>
+                <th data-field="word">标准分词</th>
+                <th data-field="degree">相似度%</th>
+            </tr>
+        </thead>
+</table>
+</div>
+
+
+<div class="wrapper4 training_record_table" id="training_record_div" style="display: none;">
+    <table data-toggle="table" data-striped=true data-url="{% static 'json/training_record.json' %}">
+        <thead>
+            <tr>
+                <th data-field="id">序号</th>
+                <th data-field="question_id">题目编号</th>
+                <th data-field="student_id">学生编号</th>
+                <th data-field="student_answer_segment">学生答案分词</th>
+                <th data-field="degree">相似度%</th>
+            </tr>
+        </thead>
+</table>
+</div>
+
+
+<!------------------------------------------------------------>
+
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-table.js' %}"></script>
+<!--汉化文件，放在 bootstrap-table.js 后面-->
+<script type="text/javascript" src="{% static 'js/bootstrap-table-zh-CN.js' %}"></script>
+<!--使竖线自适应问题而改变高度-->
+<script type="text/javascript" src="{% static 'js/test-training/myscript.js' %}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+body {
+    background: #eff3f7;
+}
+
+p.detail_des{
+    text-indent: 2em;
+}
+
+textarea.modify{
+    margin-left: 5%;
+    width: 90%;
+}
+
+.main_title {
+    font-size: 18px;
+    color: black;
+    font-weight: bolder;
+}
+.wrapper1 {
+    float: left;
+    margin-top: 60px;
+    margin-left: 40px;
+    width: 540px;
+    font-family: Microsoft YaHei;
+}
+
+.wrapper2 {
+    float: left;
+    margin-top: 100px;
+    margin-left: 40px;
+    width: 550px;
+    font-family: Microsoft YaHei;
+    font-size: 12px;
+    border:1px solid #177cb0;
+}
+
+.wrapper3{
+    float: left;
+    margin-top: 100px;
+    margin-left: 40px;
+    font-family: Microsoft YaHei;
+}
+
+.wrapper4{
+    float: left;
+    margin-top: 100px;
+    margin-left: 40px;
+    font-family: Microsoft YaHei;
+}
+
+.test-body{
+    border:1px solid #177cb0;
+
+}
+
+.question {
+    position: relative;
+}
+.newline {
+    width:538px;
+    border:0.5px solid #177cb0;
+    margin: 0px 0px 0px 0px;
+}
+
+.newline2 {
+    width:548px;
+    border:0.5px solid #177cb0;
+    margin: 0px 0px 0px 0px;
+}
+
+
+.auto_training {
+    float: left;
+}
+
+.word_database {
+    float: right;
+}
+
+.training_record {
+    float: right;
+}
+
+
+.question_content {
+    float: left;
+    width: 89.5%;
+}
+.vertical {
+    float: left;
+    width: 0.5px;
+    border:0.4px solid #177cb0;
+    margin: -2px 0px 0px 0px;
+}
+
+
+.title {
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.que_content {
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.question_score {
+    float: left;
+    width: 10%;
+}
+
+.score {
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.que_score {
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+
+.add_edge {
+    width:auto;
+    display:inline-block !important;
+    display:inline;
+    border: 1px solid #000;
+    margin: 10px 0px 0px 10px;
+}
+
+.score_percentage {
+    float: left;
+    width: 5%;
+    color: red;
+    font-weight: bolder;
+}
+
+.modify_custom_segment {
+    width: 200px;
+}
+
+.item_1 {
+    grid-area: a;
+}
+
+.item_2 {
+    grid-area: b;
+}
+
+/*.item_3 {
+    grid-area: c;
+}*/
+
+.item_4 {
+    grid-area: d;
+    margin-right: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/*.item_5 {
+    grid-area: e;
+}
+
+.item_6 {
+    grid-area: f;
+}*/
+
+.item_7 {
+    grid-area: g;
+}
+
+/*网格布局*/
+.adjust_container {
+    display: grid;
+    grid-template-columns: 180px 180px 160px;
+    grid-template-rows: 70px 70px 70px 50px/*80px 140px 260px*/ 30px;
+    grid-template-areas:
+    "a a d"
+    "b b d"
+    "b b d"
+    "c c c"
+    /*"c c d"*/
+    /*"e e e"*/
+   /* "f f f"*/
+    "h h g";
+}
+
+
+.parameter{
+    margin: 3px;
+}
+
+.parameter input {
+    width: 45%;
+}
+
+.sp div{
+    display: inline-block;
+    width: 15%;
+}
+
+.sp input{
+    width: 10%;
+}
