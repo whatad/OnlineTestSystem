@@ -1,8 +1,9 @@
 import jieba
 import copy
 import pymysql
+from exam.models import Glossary
 
-
+'''
 class Glossary:
     def __init__(self):
         self.id = 0
@@ -11,6 +12,7 @@ class Glossary:
         self.sememes  = ""
     def __eq__(self, other):
         return self.id == other.id
+'''
 
 '''
 three mode: 0 -- exact 精确匹配
@@ -26,21 +28,34 @@ def mark(mode, answer, inputs, key_words):
          return exact_mark(key_words, inputs)
     elif mode == 1:
         #input and deal the answer in mode 1
+        '''
         answer_list = get_word_list(answer)
         show_words(answer_list)             #show to teacher for choose
+        '''
         #key_words = get_key_word()          #simulate input key word, choose word by random
+        key_list = []
+        for key_dict in key_words:
+            key_list.extend(list(key_dict.keys()))
 
-        inputs_list = get_word_list(inputs)
+        inputs_list = get_word_list(inputs, key_list)
         return key_word_mark(key_words, inputs_list)
 
     elif mode == 2:
-        sememe_set = get_sememe_set(answer)
-        show_words(sememe_set)
+
+        #sememe_set = get_sememe_set(answer)
+        #show_words(sememe_set)
+
+        #show to the teacher for selecting
+        '''
+        concept_set = get_concept_set(answer)
+        show_words(concept_list)
+        '''
+
         #key_words = get_key_word()
 
-        inputs_sememe = get_sememe_set(inputs)
-        show_words(inputs_sememe)
-        return key_word_mark(key_words, inputs_sememe)
+        inputs_concept = get_concept_set(inputs)
+        show_words(inputs_concept)
+        return concept_mark(key_words, inputs_concept)
     else:
         print("mode error")
         return 0
@@ -97,6 +112,14 @@ def get_sememe_set(string):
                 sememe_set = sememe_set.union(set(sememe_list))
     return sememe_set
 
+
+def get_concept_set(answer):
+    word_list = get_word_list(answer)
+    concept_set = set()
+    for word in word_list:
+        concept_set = concept_set.union(set(Glossary.objects.filter(word = word)))
+    return concept_set
+
 def load_stop_word():
     stop_file = open(STOP_FILE, "r", encoding='UTF-8')
     stop_word = []
@@ -118,6 +141,26 @@ def key_word_mark(key_words, inputs_list):
                 key_list.remove(key_dict)
                 detail_list.append((word, key_dict[word]))
                 break
+    return percentage, detail_list
+
+def concept_mark(key_concept_list, input_concepts):
+    detail_list = []
+    percentage = 0
+    new_list = []
+    for key_concept_dict in key_concept_list:
+        new_dict = {}
+        for key_concept in key_concept_dict.keys():
+            glossary = Glossary.objects.get(id=int(key_concept))
+            new_dict[glossary] = key_concept_dict[key_concept]
+        new_list.append(new_dict)
+    for input_concept in input_concepts:
+        for concept_dict in new_list:
+            for concept_key in concept_dict:
+                if concept_key.sememes.split() == input_concept.sememes.split():
+                    percentage += concept_dict[concept_key]
+                    if concept_dict[concept_key] != 0:
+                        detail_list.append((input_concept.word+'->'+concept_key.word, concept_dict[concept_key]))
+                    concept_dict[concept_key] = 0
     return percentage, detail_list
 
 '''
