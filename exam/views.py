@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from exam.models import FillBlank, Glossary, StudentAnswer
+from exam.models import Question, Fillblank, Glossary, StudentAnswer
+import exam.fillblank as fillblank
 from exam.calculate import Calcu
 
 
@@ -12,7 +13,49 @@ def edit(request):
 
 
 def training(request):
+    id = request.GET.get('id', 1)
+    question = Question.objects.get(id=id)
+    answer_list = question.answer.split(';')
+    mode = '完全匹配'
+    if question.judge_mode == 1:
+        mode = '关键词匹配'
+    elif question.judge_mode == 2:
+        mode = '语义匹配'
+    score_points = question.scorepoint_set.all()
 
+    student_answers = question.studentanswer_set.all()
+    student_answer = ''
+    if student_answers.count() > 0:
+        student_answer = student_answers[0].answer
+    student_answer_list = student_answer.split(';')
+    while len(student_answer_list) < len(answer_list):
+        student_answer_list.append('')
+
+    score_list = []
+    detail_list = []
+    points_list = []
+
+    for i in range(len(answer_list)):
+        position_list = list(score_points.filter(position=i+1).order_by('sub_no'))
+        points_list.append(position_list)
+        key_list = []
+        key_dict = {}
+        sub_no = 1
+        for point in position_list:
+            if point.sub_no != sub_no:
+                key_list.append(key_dict)
+                key_dict = {}
+            key_dict[point.content] = point.percentage
+        key_list.append(key_dict)
+        score, detail = fillblank.mark(question.judge_mode, answer_list[i], student_answer_list[i], key_list)
+        score_list.append(score)
+        detail_list.extend(detail)
+    return render(request, 'exam/test-training.html', {'question': question, 'answer_list': answer_list,
+                                                       'mode': mode, 'points': points_list,
+                                                       'student_answer': student_answer, 'score': score_list,
+                                                       'detail':detail_list})
+
+    '''
     id = request.GET.get('id', 1)
     fill_blank = FillBlank.objects.get(id=id)
     finds = Glossary.objects.filter(word=fill_blank.fbAnswer)
@@ -43,11 +86,12 @@ def training(request):
                                                        'concepts': concepts, 'answer': answer,
                                                        'stuConcepts': stu_concepts, 'sim': sim,
                                                        'studentAnswerId': answer_id})
+    '''
 
 
 def update_answer(request):
     id = request.GET.get('id', 1)
-    fill_blank = FillBlank.objects.get(id=id)
+    fill_blank = Fillblank.objects.get(id=id)
     fill_blank.alpha = request.GET['alpha']
     fill_blank.beta1 = request.GET['beta1']
     fill_blank.beta2 = request.GET['beta2']
@@ -62,6 +106,6 @@ def add(request):
     question = request.POST['question']
     analysis = request.POST['analysis']
     num = request.POST['number']
-    fillBlank = FillBlank.objects.create(fbContent=question)
+    fillBlank = Fillblank.objects.create(fbContent=question)
     fillBlank.save()
     return render(request, 'exam/new.html')

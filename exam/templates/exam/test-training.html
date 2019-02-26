@@ -20,6 +20,7 @@
 </head>
 <body>
 <!------------------------------------------------------------>
+{% load myfilter %}
 <div class="wrapper1 tesst-wrapper">
     <p class="text-center main_title">主观题判卷训练系统</p>
     <div class="test-body">
@@ -35,58 +36,72 @@
 
         <div class="question" id="this_question">
             <div class="question_content">
-                <div class="que_type title"><strong>简单题</strong></div>
-                <p class="text-center que_content">{{ fillBlank.fbContent }}</p>
+                <div class="que_type title"><strong>填空题</strong></div>
+                <p class="detail_des">{{ question.title }}</p>
             </div>
-            <hr class="vertical" id="vertical_line1"/>
+            <!--<hr class="vertical" id="vertical_line1"/>
             <div class="question_score">
                 <div class="text-center score">分值</div>
                 <div class="text-center que_score">{{ fillBlank.fbScore }}</div>
-            </div>
-            <hr class="newline">
+            </div>-->
         </div>
 
-
+        {% for point_list in points %}
+        <hr class="newline">
         <div class="answer">
             <div class="answer_part">
-                <div class="title">标准答案</div>
-                <p class="detail_des">{{ fillBlank.fbAnswer }}</p>
-
+                <div class="title">空{{ forloop.counter }}参考答案</div>
+                {% with forloop.counter0 as f %}
+                <p class="detail_des">{{ answer_list | get:f }}</p>
+                {% endwith %}
             </div>
-
-
 
             <div class="answer_part">
-                <div class="title">概念情况</div>
-                {% for i in concepts %}
-                <p class="detail_des">{{ i }}</p>
-                {% endfor %}
+                <div class="title">评分模式</div>
+                <p class="detail_des">{{ mode }}</p>
             </div>
 
-            <button type="button" class="btn btn-danger modify" id="modify_question_btn" style="float: right;margin: 0px 20px 20px 10px;">修改</button>
-            <hr class="newline">
+            <div class="answer_part">
+                <div class="title">得分点</div>
+                <ol>
+                    {% for point in point_list %}
+                    <li>{{ point.content }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% widthratio point.percentage 1 100 %}%</li>
+                    {% endfor %}
+                </ol>
+            </div>
         </div>
-
+        {% endfor %}
+        <button type="button" class="btn btn-danger modify" id="modify_question_btn" style="float: right;margin: 0px 20px 20px 10px;">修改</button>
+        <hr class="newline">
 
         <div class="analysis">
             <div class="analysis_part">
                 <div class="title">学生答案</div>
-                <p class="detail_des">{{ answer }}</p>
+                <p class="detail_des">{{ student_answer }}</p>
                 <!--<textarea class="segment_sememe" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>-->
             </div>
             <div class="analysis_part">
                 <span>
-                    <div class="title">概念情况</div>
-                    {% for i in stuConcepts %}
-                    <p class="detail_des">{{ i }}</p>
-                    {% endfor %}
+                    <div class="title">得分情况</div>
+                    <ol>
+                        {% for item in detail %}
+                        <li>{{ item.0 }}&nbsp;&nbsp;&nbsp;{% widthratio item.1 1 100 %}%</li>
+                        {% endfor %}
+                    </ol>
                 </span>
             </div>
 
-            <div class="analysis_part">
+            <!--<div class="analysis_part">
                 <div class="title">匹配情况</div>
                 <textarea class="sememe_match" style="margin-left: 20px;width: 450px;height: 50px;"></textarea>
+            </div>-->
+            <div class="switch">
+                <span>
+                    <button  type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一个</button>
+                    <button  id="next" type="button" class="btn btn_next glyphicon glyphicon-arrow-right" style="float: right;">下一个</button>
+                </span>
             </div>
+
             <hr class="newline">
         </div>
 
@@ -94,9 +109,9 @@
         <div class="result" id="this_result">
             <span>
                 <div class="result_part1">
-                    <div  class="title text-center" style="float: left; width: 18%;">新范本相对分%</div>
+                    <div  class="title text-center" style="float: left; width: 18%;">匹配值</div>
                     <hr class="vertical" id="vertical_line2"/>
-                    <p class="score_percentage text-center">{{ sim }}</p>
+                    <p class="score_percentage text-center">{{ score }}</p>
                     <hr class="vertical" id="vertical_line3"/>
                 </div>
                 <div class="result_part2">
@@ -117,12 +132,12 @@
 
 </div>
 
-<div class="wrapper2 modify-wrapper" id="modify_question_div" style="display: none;">
+<!--<div class="wrapper2 modify-wrapper" id="modify_question_div" style="display: none;">
 
     <div class="question" id="vertical_line_question">
         <div class="question_content">
             <div class="que_type title"><strong>简单题</strong></div>
-            <p class="text-center que_content">{{ fillBlank.fbContent }}</p>
+            <p class="text-center que_content">{{ question.title }}</p>
         </div>
         <hr class="vertical" id="vertical_line_modify"/>
         <div class="question_score">
@@ -195,7 +210,7 @@
             </tr>
         </thead>
 </table>
-</div>
+</div>-->
 
 
 <!------------------------------------------------------------>
