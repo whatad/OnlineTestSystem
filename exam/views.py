@@ -37,7 +37,7 @@ def training(request):
 
     for i in range(len(answer_list)):
         position_list = list(score_points.filter(position=i+1).order_by('sub_no'))
-        points_list.append(position_list)
+        #points_list.append(position_list)           #未区分sub
         key_list = []
         key_dict = {}
         sub_no = 1
@@ -47,6 +47,7 @@ def training(request):
                 key_dict = {}
             key_dict[point.content] = point.percentage
         key_list.append(key_dict)
+        points_list.append(key_list)
         score, detail = fillblank.mark(question.judge_mode, answer_list[i], student_answer_list[i], key_list)
         score_list.append(score)
         detail_list.extend(detail)

@@ -64,8 +64,12 @@
             <div class="answer_part">
                 <div class="title">得分点</div>
                 <ol>
-                    {% for point in point_list %}
-                    <li>{{ point.content }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% widthratio point.percentage 1 100 %}%</li>
+                    {% for point_dict in point_list %}
+                    <li>
+                        {% for key, value in point_dict.items %}
+                            {{ key }}&nbsp;&nbsp;&nbsp;&nbsp;{% widthratio value 1 100 %}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endfor %}
+                    </li>
                     {% endfor %}
                 </ol>
             </div>
