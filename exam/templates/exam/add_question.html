@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add question</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body class="body">
+    <div class="container">
+        <form>
+            <div class="form-group row">
+                <label for="title" class="col-2 col-form-label">题目</label>
+                <textarea id="title" class="form-control col-10" placeholder="请输入题目内容" rows="3"></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="subject" class="col-2 col-form-label">科目</label>
+                <select class="form-control col-10" id="subject">
+                    <option value="1">语文</option>
+                    <option value="2">数学</option>
+                    <option value="3">英语</option>
+                    <option value="4">物理</option>
+                    <option value="5">化学</option>
+                    <option value="6">生物</option>
+                    <option value="7">历史</option>
+                    <option value="8">地理</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="type" class="col-2 col-form-label">题型</label>
+                <select class="form-control col-10" id="type">
+                    <option value="1">填空</option>
+                    <option value="2">简答</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="answer" class="col-2 col-form-label">参考答案</label>
+                <textarea id="answer" class="form-control col-10" placeholder="请输入参考答案内容" rows="3"></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="level" class="col-2 col-form-label">题型</label>
+                <select class="form-control col-10" id="level">
+                    <option value="1">较难</option>
+                    <option value="2">难</option>
+                    <option value="3">中</option>
+                    <option value="4">易</option>
+                    <option value="5">较易</option>
+                </select>
+            </div>
+
+            <div id="fillblank_area">
+                <div class="m-2">
+                    <label>空格1</label>
+                    <div class="space border rounded p-2 ">
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label">匹配模式</label>
+                            <select class="form-control col-9 mode">
+                                <option value="0">完全匹配</option>
+                                <option value="1">关键词匹配</option>
+                                <option value="2">语义匹配</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label">分数</label>
+                            <input class="form-control col-9 score" placeholder="请输入分值"/>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label">得分点</label>
+                            <textarea class="form-control col-9 point" placeholder="请输入得分内容" rows="3"></textarea>
+                            <small class="form-text text-muted col-9 offset-2">可代替得分点在同一行，用英文分号分开，形式为：得分点+空格+得分百分比</small>
+                            <input class="btn btn-primary col-1 offset-9" type="button" value="确定"/>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="add_btn" class="btn btn-outline-success p-1 col-1 offset-10">
+                    添加空格
+                </button>
+            </div>
+
+            <div id="short_answer_area" class="d-none">
+                <div class="m-2">
+                    <label>分点1</label>
+                    <div class="space border rounded p-2 ">
+                        <div class="form-group row">
+                            <label for="score" class="col-2 col-form-label">分数</label>
+                            <input id="score" class="form-control col-9" placeholder="请输入分值"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="point" class="col-2 col-form-label">分点答案</label>
+                            <textarea id="point" class="form-control col-9 m-2" placeholder="请输入分点答案" rows="3"></textarea>
+                            <input class="btn btn-primary col-1 offset-9" type="button" value="确定"/>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-success col-1 offset-10 p-1 add_btn">
+                    添加分点
+                </button>
+            </div>
+            <div class="float-right m-3">
+                <input type="submit" class="btn btn-secondary" value="提交题目"/>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

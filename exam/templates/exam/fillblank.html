@@ -1,0 +1,181 @@
+<html>
+{% load staticfiles %}
+{% load myfilter %}
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/fillblank.js' %}"></script>
+	</head>
+	<body class="body">
+		<div class="container">
+
+			<div class="align-top my-3">
+				<label>题号</label>
+				<input type="text" size="5" value="{{ question.questionid }}" id="question_id"/>
+                <a class="btn btn-secondary" role="button" id="question_jump">跳转</a>
+				<label>课程</label>
+				<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+					<div class="dropdown">
+						<button class="btn dropdown-toggle border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ question.subjectid_name }}
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">语文</a>
+							<a class="dropdown-item" href="#">数学</a>
+							<a class="dropdown-item" href="#">英语</a>
+							<a class="dropdown-item" href="#">物理</a>
+							<a class="dropdown-item" href="#">化学</a>
+							<a class="dropdown-item" href="#">生物</a>
+							<a class="dropdown-item" href="#">历史</a>
+							<a class="dropdown-item" href="#">地理</a>
+						</div>
+					</div>
+				</div>
+				<label>题型</label>
+				<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+					<div class="dropdown">
+						<button class="btn dropdown-toggle border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							填空题
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">填空题</a>
+							<a class="dropdown-item" href="/exam/shortAnswer">简答题</a>
+						</div>
+					</div>
+				</div>
+				<a class="btn btn-secondary" href="#" role="button" id="pre_ques">上一题</a>
+				<a class="btn btn-secondary" href="#" role="button" id="next_ques">下一题</a>
+				<!--<a class="btn btn-secondary float-right" href="#" role="button">保存答案</a>-->
+			</div>
+
+				<div class="row">
+					<div class="col border" >
+						<label for="title">题目</label>
+    					<div class="border rounded p-2" id="title" contenteditable="false">{{ question.question }}</div>
+    					<div class="row my-1" >
+    						<div class="col text-center">
+    							<label>难度</label>
+	    						<select class="form-select" id="level_select" disabled>
+									<option value ="5" {% ifequal question.questionlevel 5 %}selected{% endifequal %}>较难</option>
+                                    <option value ="4" {% ifequal question.questionlevel 4 %}selected{% endifequal %}>难</option>
+									<option value ="3" {% ifequal question.questionlevel 3 %}selected{% endifequal %}>中</option>
+									<option value ="2" {% ifequal question.questionlevel 2 %}selected{% endifequal %}>易</option>
+                                    <option value ="1" {% ifequal question.questionlevel 1 %}selected{% endifequal %}>较易</option>
+								</select>
+    						</div>
+	    					<div class="col text-center">
+		    					<label>分值:</label>
+		    					<strong><label>10</label></strong>
+	    					</div>
+                            <div class="col text-center">
+		    					<button class="btn btn-primary" id="question_btn">修改</button>
+	    					</div>
+    					</div>
+					</div>
+					<div class="col border" >
+						<label for="answer">参考答案</label>
+                        <div class="border rounded p-2" id="answer" contenteditable="false">{{ question.questionanswer }}</div>
+    					<div class="row my-1" >
+                            <div class="col text-center"></div>
+	    					<div class="col text-center">
+		    					<button class="btn btn-primary" id="answer_btn">修改</button>
+	    					</div>
+    					</div>
+					</div>
+				</div>
+
+                <div class="row my-3">
+                    <div class="col">
+						<label>答案编号：</label>
+						<input type="text" size="5" value="{{ answer.id }}" id="answer_id"/>
+                        <input type="text" size="5" value="{{ answer_no }}" id="answer_no" hidden/>
+					</div>
+					<div class="col">
+						<label>学号：</label>
+						<label>111111111111</label>
+					</div>
+					<div class="col">
+						<label>姓名：</label>
+						<label>aaaaaaa</label>
+					</div>
+                    <div class="col">
+                        <a class="btn btn-secondary" href="#" role="button" id="pre_stu">上一位</a>
+                        <a class="btn btn-secondary" href="#" role="button" id="next_stu">下一位</a>
+                    </div>
+				</div>
+
+                {% for display  in displays %}
+				<div class="row">
+					<div class="col border" >
+						<label for="space">空{{ forloop.counter }}得分点</label>
+                        <div class="space" contenteditable="false">
+                            {% for dict  in display.point %}
+                                <div class="m-1 line">
+                                {% for key,value in dict.items %}
+                                    <div class="d-inline-flex point">
+                                        <div class="border p-1 d_key" contenteditable="false">{{ key }}</div>
+                                        <div class="border p-1 d_value" contenteditable="false">{{ value }}</div>
+                                        <button type="button" class="btn btn-outline-danger p-1 d-none close_btn" aria-label="Close">&times;</button>
+                                    </div>
+                                {% endfor %}
+                                    <div class="d-inline-flex add_div">
+                                        <button type="button" class="btn btn-outline-success p-1 d-none add_btn">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="m-1 line">
+                                <div class="d-inline-flex add_div">
+                                    <button type="button" class="btn btn-outline-success p-1 d-none add_btn">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+    					<div class="row my-1" >
+    						<div class="col text-center">
+    							<label for="score">分值</label>
+	    						<label class="score"><strong>{{ display.score }}</strong></label>
+    						</div>
+    						<div class="col text-center">
+    							<label>模式</label>
+	    						<select class="form-select mode_selector" disabled>
+									<option value="0" {% ifequal display.mode 0 %}selected{% endifequal %}>完全匹配</option>
+									<option value="1" {% ifequal display.mode 1 %}selected{% endifequal %}>关键词匹配</option>
+									<option value="2" {% ifequal display.mode 2 %}selected{% endifequal %}>语义匹配</option>
+								</select>
+    						</div>
+	    					<div class="col text-center">
+		    					<button class="btn btn-primary point_btn">修改</button>
+	    					</div>
+    					</div>
+					</div>
+					<div class="col border" >
+						<label for="student_answer1">学生答案</label>
+    					<label class="form-control" id="student_answer1" >{{ display.answer }}</label>
+    					<div class="row my-1" >
+	    					<div class="col text-center">
+		    					<label>分值%</label>
+		    					<input class="score_input" type="text" size="3" value="{{ display.percentage }}" disabled/>
+	    					</div>
+	    					<div class="col text-center">
+		    					<button class="btn btn-primary score_btn">修改</button>
+	    					</div>
+    					</div>
+					</div>
+				</div>
+                {% endfor %}
+                <div class="col my-3 text-right font-weight-bold">
+					<label>总分：</label>
+					<label id="total">{{ total_score }}</label>
+				</div>
+		</div>
+	</body>
+</html>
