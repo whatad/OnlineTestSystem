@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam.models import Question, Fillblank, X2Questions, X2Space, X2ScorePoint, X2StudentAnswer, X2Training
+from exam.models import Question, Fillblank, X2Questions, X2Space, X2ScorePoint, X2StudentAnswer, X2Training, X2Branch, Glossary
 import exam.fillblank as fillblank
 import json
 import exam.short_answer as SA
@@ -99,14 +99,21 @@ def fillblank_train(request):
         score_points = space_list[i].x2scorepoint_set.all().order_by('no')
         key_list = []
         key_dict = {}
+        display_dict = {}
         no = 1
         for point in score_points:
             if point.no != no:
                 key_list.append(key_dict)
+                display_block.point.append(display_dict)
                 key_dict = {}
+                display_dict = {}
+            if space_list[i].mode == 2:
+                display_dict[Glossary.objects.get(id=point.content).word] = point.percentage
+            else:
+                display_dict[point.content] = point.percentage
             key_dict[point.content] = point.percentage
         key_list.append(key_dict)
-        display_block.point = key_list
+        display_block.point.append(display_dict)
 
         score, detail = fillblank.mark(space_list[i].mode, answer_list[i], student_answer_list[i], key_list)
 
@@ -261,3 +268,78 @@ def saveTraining(request):
                 train.save()
                 i += 1
     return HttpResponse()
+
+def add_question(request):
+
+    return render(request, 'exam/add_question.html')
+
+def test(request):
+    title = request.POST.get("title")
+    subject = request.POST.get("subject")
+    type = request.POST.get("type")
+    answer = request.POST.get("answer")
+    level = request.POST.get("level")
+    mode_list = request.POST.getlist("mode")
+    score_list = request.POST.getlist("score")
+    point_list = request.POST.getlist("point")
+    scoreb_list = request.POST.getlist("scoreb")
+    branch_list = request.POST.getlist("branch")
+    if title != None and type != None:
+        question = X2Questions.objects.create()
+        question.question = title
+        question.subjectid = int(subject)
+        question.questiontype = int(type)
+        question.questionanswer = answer
+        question.questionlevel = int(level)
+        question.save()
+        if type == '5':
+            for i in range(len(mode_list)):
+                space = X2Space.objects.create(mode=int(mode_list[i]), position=(i+1))
+                space.question = question
+                space.score = float(score_list[i])
+                space.save()
+                points = point_list[i].split('\n')
+                for j in range(len(points)):
+                    words = points[j].strip().split(';')
+                    for word in words:
+                        kav = word.split(" ")
+                        if kav[0].strip() != "" and is_number(kav[1].strip()):
+                            score_point = X2ScorePoint.objects.create(content=kav[0], percentage=kav[1], no=(j+1), space=space)
+                            score_point.save()
+        elif type == '6':
+            for i in range(len(scoreb_list)):
+                branch = X2Branch.objects.create()
+                branch.score = float(scoreb_list[i])
+                branch.position = i+1
+                branch.question = question
+                branch.save()
+                kav = branch_list[i].split(" ")
+                if kav[0].strip() != "" and is_number(kav[1].strip()):
+                    train = X2Training.objects.create()
+                    train.branch = branch
+                    train.content = kav[0]
+                    train.percentage = kav[1]
+                    train.save()
+
+    return render(request, 'exam/add_question.html')
+
+def get_concepts(request):
+    word_str = request.POST.get("words")
+    print(word_str)
+    word_list = word_str.split(";")
+    concepts = set()
+    for word in word_list:
+        if word.strip() != "":
+            concepts = concepts.union(fillblank.get_concept_set(word))
+    concept_list = []
+    for concept in concepts:
+        concept_dict = {}
+        concept_dict['id'] = concept.id
+        concept_dict['word'] = concept.word
+        concept_dict['type'] = concept.type
+        concept_dict['concept'] = concept.concept
+        concept_list.append(json.dumps(concept_dict))
+
+    return HttpResponse(json.dumps({
+            "concept_list": concept_list
+        }))

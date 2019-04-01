@@ -14,5 +14,10 @@ urlpatterns = [
 
     url(r'^shortAnswer/', views.short_answer_train),
     url(r'^updateBranch', views.update_branch),
-    url(r'^saveTraining', views.saveTraining)
+    url(r'^saveTraining', views.saveTraining),
+
+    url(r'^addQusetion', views.add_question),
+
+    url(r'^test/', views.test),
+    url(r'^getConcepts/', views.get_concepts)
 ]

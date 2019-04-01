@@ -106,7 +106,7 @@ def get_sememe_set(string):
 
         for concept in concept_list:
             print(concept)
-            line_list = concept.sememes.split("\n")
+            line_list = concept.concept.split("\n")
             for line in range(2):
                 sememe_list = line_list[line].split(",")
                 sememe_set = sememe_set.union(set(sememe_list))
@@ -156,7 +156,7 @@ def concept_mark(key_concept_list, input_concepts):
     for input_concept in input_concepts:
         for concept_dict in new_list:
             for concept_key in concept_dict:
-                if concept_key.sememes.split() == input_concept.sememes.split():
+                if concept_key.concept.split() == input_concept.concept.split():
                     percentage += concept_dict[concept_key]
                     if concept_dict[concept_key] != 0:
                         detail_list.append((input_concept.word+'->'+concept_key.word, concept_dict[concept_key]))
@@ -233,7 +233,7 @@ def DB_connect(word):
         glossary.id = row[0]
         glossary.word = row[1]
         glossary.type = row[2]
-        glossary.sememes = row[3]
+        glossary.concept = row[3]
         #print(row[3])
         concept_list.append(glossary)
     # 关闭数据库连接

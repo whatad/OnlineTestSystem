@@ -17,7 +17,7 @@ def chs_to_cht(line):
     return line
 
 line_chs='<>123asdasd把中文字符串进行繁体和简体中文的转换'
-line_cht='何当共剪西窗烛'
+line_cht='憂慮'
 
 ret_chs = "%s\n"%cht_to_chs(line_cht)
 ret_cht = "%s\n"%chs_to_cht(line_chs)

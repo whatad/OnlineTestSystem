@@ -101,7 +101,7 @@
             </div>-->
             <div class="switch">
                 <span>
-                    <button  type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一个</button>
+                    <button  onclick="jump({{ questionId|add:-1}}, {{ answer }})" type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一个</button>
                     <button  id="next" type="button" class="btn btn_next glyphicon glyphicon-arrow-right" style="float: right;">下一个</button>
                 </span>
             </div>
@@ -127,8 +127,8 @@
 
         <div class="switch">
             <span>
-                <button onclick="jump({{ questionId|add:-1}})" type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一题</button>
-                <button onclick="jump({{ questionId|add:1 }})" id="next" type="button" class="btn btn_next glyphicon glyphicon-arrow-right" style="float: right;">下一题</button>
+                <button onclick="jump({{ question.id|add:-1}})" type="button" class="btn btn_prior glyphicon glyphicon-arrow-left" style="float: left;">上一题</button>
+                <button onclick="jump({{ question.id|add:1 }})" id="next" type="button" class="btn btn_next glyphicon glyphicon-arrow-right" style="float: right;">下一题</button>
             </span>
         </div>
 

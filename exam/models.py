@@ -445,7 +445,7 @@ class Fillblank(models.Model):
 class Glossary(models.Model):
     word = models.CharField(max_length=255, blank=True, null=True)
     type = models.CharField(max_length=255, blank=True, null=True)
-    sememes = models.CharField(max_length=255, blank=True, null=True)
+    concept = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -526,7 +526,7 @@ class Teacher(models.Model):
 
 
 class X2Branch(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     question = models.ForeignKey('X2Questions', models.DO_NOTHING, db_column='question', blank=True, null=True)
     position = models.IntegerField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
@@ -591,7 +591,7 @@ class X2ScorePoint(models.Model):
 
 
 class X2Space(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     question = models.ForeignKey(X2Questions, models.DO_NOTHING, db_column='question', blank=True, null=True)
     mode = models.IntegerField()
     position = models.IntegerField()

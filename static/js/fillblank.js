@@ -1,5 +1,7 @@
 $(document).ready(function(){
-    $("#question_jump").attr('href', '/exam/fillblank?no='+$('#question_id').val());
+    $("#question_jump").click(function () {
+        location.href = '/exam/fillblank?no='+parseInt($('#question_id').val());
+    });
 
     $('#pre_ques').attr('href', '/exam/fillblank?no='+(parseInt($('#question_id').val())-1));
     $('#next_ques').attr('href', '/exam/fillblank?no='+(parseInt($('#question_id').val())+1));
